@@ -37,7 +37,7 @@ class routines:
     
     def run(self):
         if self.optimizer=="SGD_c_l_rate":
-            from optimizers import SGD
+            from prot_opt.code.optimizers import SGD
             #epoch_no=10
             #l_rate=0.001
             # we have two optimization problems: Optimize both of them. Select optimal s
@@ -154,7 +154,7 @@ class routines:
             routine below.
             """
         if self.optimizer=="SGD_scale_by_ep":
-            from optimizers import SGD
+            from prot_opt.code.optimizers import SGD
             #epoch_no=10
             #l_rate=0.001
             # we have two optimization problems: Optimize both of them. Select optimal s
@@ -271,7 +271,7 @@ class routines:
             routine below.
             """
         if self.optimizer=="SGD_adaptive":
-            from optimizers import SGD_adaptive
+            from prot_opt.code.optimizers import SGD_adaptive
             #epoch_no=10
             #l_rate=0.001
             # we have two optimization problems: Optimize both of them. Select optimal s
@@ -388,7 +388,7 @@ class routines:
             routine below.
             """
         if self.optimizer=="SGD_with_Momentum":
-            from optimizers import SGD_with_Momentum
+            from prot_opt.code.optimizers import SGD_with_Momentum
             #epoch_no=10
             #l_rate=0.001
             # we have two optimization problems: Optimize both of them. Select optimal s
@@ -505,7 +505,7 @@ class routines:
             routine below.
             """
         if self.optimizer=="Adagrad":
-            from optimizers import AdaGrad
+            from prot_opt.code.optimizers import AdaGrad
             #epoch_no=10
             #l_rate=0.001
             # we have two optimization problems: Optimize both of them. Select optimal s
@@ -792,7 +792,7 @@ class routines:
             routine below.
             """
         if self.optimizer=="GD_c_l_rate":
-            from optimizers import SGD
+            from prot_opt.code.optimizers import SGD
             #epoch_no=10
             #l_rate=0.001
             # we have two optimization problems: Optimize both of them. Select optimal s
@@ -845,7 +845,7 @@ class routines:
             routine below.
             """
         if self.optimizer=="GD_scale_by_ep":
-            from optimizers import SGD
+            from prot_opt.code.optimizers import SGD
             #epoch_no=10
             #l_rate=0.001
             # we have two optimization problems: Optimize both of them. Select optimal s
@@ -900,7 +900,7 @@ class routines:
             """
         if self.optimizer=="SVRG":
             #from optimizers import AdaGrad
-            from optimizers import SVRG
+            from prot_opt.code.optimizers import SVRG
             #epoch_no=10
             #l_rate=0.001
             # we have two optimization problems: Optimize both of them. Select optimal s
