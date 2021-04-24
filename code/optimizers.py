@@ -21,62 +21,39 @@ class SGD_adaptive(Optimizer):
     super(SGD_adaptive, self).__init__(params, {'lr': lr})
 
     for group in self.param_groups:
-      for p in group['params']:
-        state = self.state[p]
+      for param in group['params']:
+        state = self.state[param]
         state['step'] = 0
 
         # make a dictionary entry for Gt. It is just a 1-D vector (a scalar).
         # device=p.device tells pytorch to allocate the memory for Gt on the 
         # same device (e.g. CPU or GPU) as the data for the variable p.
-        state['Gt'] = torch.zeros(1, device=p.device)
+        state['Gt'] = torch.zeros(1, device=param.device)
 
   @torch.no_grad()
   def step(self, closure=None):
+    epsilon=1e-8
     loss = None
     if closure is not None:
       with torch.enable_grad():
         loss = closure()
-    
-    tmp_G_t=0
+
     for group in self.param_groups:
       lr = group['lr']
-      for p in group['params']:
-        if p.grad is None:
+      for param in group['params']:
+        if param.grad is None:
           continue
-        #print(p.grad)
-        ####### YOUR CODE HERE ########
+
         # Update the iteration counter (again, this is not actually used in this algorithm)
-        state = self.state[p]
+        state = self.state[param]
         state['step'] += 1
-        
-        #print(p.grad)
-        state['Gt']+=(torch.norm(p.grad,p=2))**2
-        #print(state['Gt'].item())
-        tmp_G_t+=(state['Gt'].item())
-        #print(tmp_G_t)
-    for group in self.param_groups:
-      lr = group['lr']
-      for p in group['params']:
-        if p.grad is None:
-          continue
-        #print(tmp_G_t)
-        step_length=lr/tmp_G_t**0.5
-        #print(step_length)
-        p.add_(p.grad, alpha=-step_length)
+        step = state['step']
 
+        grad = param.grad
 
+        state['Gt'].add_(torch.norm(grad)**2)
         
-        # Perform the SGD update. p.grad holds the gradient of the loss
-        # with respect to p.
-        # Morally, we want to do 
-        # p = p - lr * p.grad
-        # but because p is actually a pointer, we want to modify
-        # the data it points to in-place, which the above will not do
-        # (it will allocate new data with the value p - lr*p.grad and then set
-        # p as a pointer to that new data).
-        # so, instead we use the .add_ function. It has the semantics
-        # p.add_(X,y) will change the value pointed to by p by adding c*X to it.
-        #p.add_(p.grad, alpha=-lr)
+        param.addcdiv_(grad, torch.sqrt(state['Gt']).add_(epsilon), value=-lr)
 
 
 
@@ -436,13 +413,13 @@ class SVRG(Optimizer):
     # state: value for self.state[param].
 
     ## YOUR CODE HERE ##
-
+    epsilon=1e-8
     g_t=grad-ckpt_grad+state['checkpoint_grad']
 
     state['Gt'].add_(torch.norm(g_t)**2)
     #print(state)
         
-    param.addcdiv_(g_t, torch.sqrt(state['Gt']), value=-lr)
+    param.addcdiv_(g_t, torch.sqrt(state['Gt']).add_(epsilon), value=-lr)
 
 
 
@@ -471,7 +448,7 @@ class SVRG(Optimizer):
         state = self.state[param]
         if self.initial_phase:
           state['Gt'].add_(torch.norm(grad)**2)
-          param.addcdiv_(grad, torch.sqrt(state['Gt']), value=-lr)
+          param.addcdiv_(grad, torch.sqrt(state['Gt']).add_(epsilon), value=-lr)
 
         elif self.checkpoint_phase:
           self.checkpoint_update(param, ckpt_grad, state)
