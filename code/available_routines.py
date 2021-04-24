@@ -279,7 +279,7 @@ class routines:
             s = torch.zeros(self.d_of_data, requires_grad=True)
             if self.naive_initialization==False:
                 initialize=self.init_point
-                s=torch.tensor(initialize, requires_grad=True)
+                s=torch.tensor(initialize.astype('float32'), requires_grad=True)
             optimizer = SGD_adaptive([s], self.l_rate)
             losses1 = []
             cumul_loss1=[]
@@ -331,7 +331,7 @@ class routines:
             s = torch.zeros(self.d_of_data, requires_grad=True)
             if self.naive_initialization==False:
                 initialize=self.init_point
-                s=torch.tensor(initialize, requires_grad=True)
+                s=torch.tensor(initialize.astype('float32'), requires_grad=True)
             optimizer = SGD_adaptive([s], self.l_rate)
             losses2 = []
             cumul_loss2=[]
@@ -513,7 +513,7 @@ class routines:
             s = torch.zeros(self.d_of_data, requires_grad=True)
             if self.naive_initialization==False:
                 initialize=self.init_point
-                s=torch.tensor(initialize, requires_grad=True)
+                s=torch.tensor(initialize.astype('float32'), requires_grad=True)
             optimizer = AdaGrad([s], self.l_rate,self.betas)
             losses1 = []
             cumul_loss1=[]
@@ -565,7 +565,7 @@ class routines:
             s = torch.zeros(self.d_of_data, requires_grad=True)
             if self.naive_initialization==False:
                 initialize=self.init_point
-                s=torch.tensor(initialize, requires_grad=True)
+                s=torch.tensor(initialize.astype('float32'), requires_grad=True)
             optimizer = AdaGrad([s], self.l_rate,self.betas)
             losses2 = []
             cumul_loss2=[]
