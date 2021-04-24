@@ -911,8 +911,8 @@ class routines:
             group = [{'params': [s], 'lr': self.l_rate, 'checkpoints': [check_point_s]}]
             if self.naive_initialization==False:
                 initialize=self.init_point
-                s=torch.tensor(initialize, requires_grad=True)
-                check_point_s=torch.tensor(initialize, requires_grad=True)
+                s=torch.tensor(initialize.astype('float32'), requires_grad=True)
+                check_point_s=torch.tensor(initialize.astype('float32'), requires_grad=True)
                 group = [{'params': [s], 'lr': self.l_rate, 'checkpoints': [check_point_s]}]
             optimizer = SVRG(group)
             losses1 = []
@@ -980,8 +980,8 @@ class routines:
             group = [{'params': [s], 'lr': self.l_rate, 'checkpoints': [check_point_s]}]
             if self.naive_initialization==False:
                 initialize=self.init_point
-                s=torch.tensor(initialize, requires_grad=True)
-                check_point_s=torch.tensor(initialize, requires_grad=True)
+                s=torch.tensor(initialize.astype('float32'), requires_grad=True)
+                check_point_s=torch.tensor(initialize.astype('float32'), requires_grad=True)
                 group = [{'params': [s], 'lr': self.l_rate, 'checkpoints': [check_point_s]}]
             optimizer = SVRG(group)            
           
