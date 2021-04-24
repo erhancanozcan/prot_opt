@@ -145,5 +145,20 @@ def generate_dual_pns(df_class,dist,seed):
     if dist=="uniform":
         dual_pns=np.random.uniform(0,1,num_pairs)
         return(df_class,pos,neg,d_of_data,num_pairs,dual_pns)
+    if dist=="bernoulli_1":
+        dual_pns=np.random.binomial(1,0.9,num_pairs)
+        return(df_class,pos,neg,d_of_data,num_pairs,dual_pns)
+    if dist=="bernoulli_2":
+        dual_pns=np.random.binomial(1,0.7,num_pairs)
+        return(df_class,pos,neg,d_of_data,num_pairs,dual_pns)
+    if dist=="bernoulli_3":
+        dual_pns=np.random.binomial(1,0.5,num_pairs)
+        return(df_class,pos,neg,d_of_data,num_pairs,dual_pns)
+    if dist=="bernoulli_4":
+        dual_pns=np.random.binomial(1,0.3,num_pairs)
+        return(df_class,pos,neg,d_of_data,num_pairs,dual_pns)
+    if dist=="bernoulli_5":
+        dual_pns=np.random.binomial(1,0.1,num_pairs)
+        return(df_class,pos,neg,d_of_data,num_pairs,dual_pns)
     
    
