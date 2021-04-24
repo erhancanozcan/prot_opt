@@ -15,8 +15,8 @@ import matplotlib.pyplot as plt
 import random
 from numpy import inf
 
-from true_objective import true_loss
-from true_objective import estimated_loss
+from prot_opt.code.true_objective import true_loss
+from prot_opt.code.true_objective import estimated_loss
 
 
 
